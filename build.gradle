@@ -1,0 +1,31 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'scala'
+apply plugin: 'idea'
+version = '1.0'
+
+repositories{
+    mavenCentral()
+}
+
+tasks.withType(ScalaCompile) {
+    targetCompatibility = 1.7
+    scalaCompileOptions.deprecation = false
+    scalaCompileOptions.unchecked = false
+    scalaCompileOptions.additionalParameters = ['-nowarn']
+    options.warnings = false
+    options.compilerArgs = ["-Xmax-classfile-name 130"]
+}
+
+compileJava {
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+}
+
+dependencies {
+    compile("org.scala-lang:scala-library:2.10.2")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.12'
+}
